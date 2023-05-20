@@ -1,90 +1,105 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from './page.module.css'
+'use client';
 
-const inter = Inter({ subsets: ['latin'] })
+import Analytics from './components/Analytics';
+import Header from './components/Header';
+import Card from './components/Card';
+import Container from './components/Container';
+import RecentTransactionCard from './components/RecentTransactionCard';
+import SavingsPlan from './components/SavingsPlan';
+import { useState, useEffect } from 'react'
+import { BiBell } from 'react-icons/bi'
+import { TbMessage2 } from 'react-icons/tb'
 
 export default function Home() {
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+
+  }, [])
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="p-5 space-y-5">
+      <Header />
+
+      <div className="flex space-x-5 w-full">
+        <div className=" flex-1 space-y-7 ">
+          <Container>
+            <h1 className="mb-2  text-lg text-white">Overview</h1>
+
+            <div className="grid grid-cols-2 gap-5">
+              <Card title="Your Balance" className='bg-secondary' />
+              <Card title="Savings" />
+              <Card title="Income" />
+              <Card title="Expenses" />
+            </div>
+          </Container>
+
+          <Container>
+            <div className="flex justify-between items-center">
+              <h1 className='mb-2  text-lg text-white flex-[0.5]'>Analytics</h1>
+
+              <div className="flex items-center justify-between flex-[0.5] text-sm">
+                <p className='flex items-center'><span className="w-[12px] h-[12px] mr-2 rounded-full bg-secondary "></span>Incomes</p>
+                <p className='flex items-center'><span className="w-[12px] h-[12px] mr-2 rounded-full  bg-green"></span>Expenses</p>
+                <select name="day" id="day" className='bg-light-bg outline-none border-none text-xs rounded p-1'>
+                  <option value="weekly">Weekly</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="yearly">Yearly</option>
+                </select>
+              </div>
+            </div>
+            {/* Anlytics */}
+            {isClient && <Analytics />}
+
+          </Container>
+
+          <Container className='space-y-5'>
+            <div className="flex justify-between items-center">
+              <h1 className='mb-2  text-lg text-white '>Recent Transaction</h1>
+
+              <p className='text-secondary'>See All</p>
+            </div>
+            <hr />
+
+            <RecentTransactionCard />
+            <RecentTransactionCard />
+            <RecentTransactionCard />
+            <RecentTransactionCard />
+            <RecentTransactionCard />
+          </Container>
         </div>
-      </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
+        <div className=" flex-[0.4] space-y-7 ">
+
+          <Container className='space-y-6'>
+            <div className="flex justify-between items-center">
+              <h1 className='mb-2  text-lg text-white '>Savings Plan</h1>
+
+              <p className='text-secondary'>See All</p>
+            </div>
+            <hr />
+
+            <SavingsPlan />
+            <SavingsPlan />
+            <SavingsPlan />
+          </Container>
+
+          <Container className='space-y-5'>
+            <div className="flex justify-between items-center">
+              <h1 className='mb-2  text-lg text-white '>Recent Transaction</h1>
+
+              <p className='text-secondary'>See All</p>
+            </div>
+            <hr />
+
+            <RecentTransactionCard />
+            <RecentTransactionCard />
+            <RecentTransactionCard />
+            <RecentTransactionCard />
+            <RecentTransactionCard />
+          </Container>
         </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
       </div>
     </main>
   )
